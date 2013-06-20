@@ -4,6 +4,7 @@
 
 #include <cassert>  // assert
 #include <iostream> // endl, istream, ostream
+#include <string>
 
 #include "PFD.h"
 
@@ -21,7 +22,7 @@ bool PFD_read (int numVerts, int numRules, std::istream& in) {
         in >> nodeId;
         assert(nodeId>0);
         --nodeId; //nodeId ranges from [1,N]
-        assert(nodeId>0);
+        assert(nodeId>=0);
 		int numDeps;
 		in >> numDeps;
         assert(numDeps>0);
@@ -31,7 +32,7 @@ bool PFD_read (int numVerts, int numRules, std::istream& in) {
 			in >> temp;
             assert(temp>0);
             --temp; //nodeId ranges from [1,N]
-            assert(temp>0);
+            assert(temp>=0);
 			dep.push_back(temp);
 		}
         assert(dep.size()>0);
@@ -57,7 +58,7 @@ void PFD_construct(int numVerts, std::vector<node>& graph) {
     assert(!graph.empty());}
 
 void PFD_construct (int nodeId, std::vector<int> dependencies, std::vector<node>& graph){
-	assert(static_cast<unsigned int>(nodeId) < (graph.size() - 1));
+	assert(static_cast<unsigned int>(nodeId) <= (graph.size() - 1));
     assert(!dependencies.empty());
     assert(!graph.empty());
 
@@ -76,14 +77,13 @@ void PFD_print () {
 }
 
 void PFD_solve (std::istream& in, std::ostream& out) {
-	int numVerts;
-	in >> numVerts;
 	do {
+		int numVerts;
+		in >> numVerts;
         assert(numVerts>0);
 		int numRules;
 		in >> numRules;
         assert(numRules>0);
 		PFD_read(numVerts, numRules, in);
 		//PFD_eval();
-		in>>numVerts;
-	} while (numVerts);}
+	} while (!in);}
