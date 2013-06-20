@@ -10,32 +10,42 @@
 
 /**
  * reads two ints into i and j
- * @param r a  std::istream
- * @param i an int by reference
- * @param j an int by reference
- * @return true if that succeeds, false otherwise
+ * @param numVerts an int indicating number of vertices in the dependency graph
+ * @param numRules an int indicating number of rules detailing dependencies
+ * @param in a std::istream with dependency rules 
+ * @return true if read succeeds, false otherwise
  */
-bool PFD_read (std::istream&);
+bool PFD_read (int numVerts, int numRules, std::istream& in);
 
 // ------------
-// PFD_solve
+// PFD_construct
 // ------------
 
 /**
- * @param i the beginning of the range, inclusive
- * @param j the end       of the range, inclusive
- * @return the max cycle length in the range [i, j]
+ * @param numVerts an int indicating number of vertices in the dependency graph
+ * @param graph a vector<node> by reference holding the dependency graph
  */
-int PFD_construct ();
+void PFD_construct(int numVerts, vector<node>& graph);
+
+// ------------
+// PFD_construct
+// ------------
+
+/**
+ * @param nodeId an int indicate node number to be updated
+ * @param dependencies a vector<int> holding node dependencies 
+ * @param graph a vector<node> by reference holding the dependency graph
+ */
+void PFD_construct (int nodeId, vector<int> dependencies, vector<node>& graph);
 
 // ------------
 // PFD_eval
 // ------------
 
 /**
- * @param i the beginning of the range, inclusive
- * @param j the end       of the range, inclusive
- * @return the max cycle length in the range [i, j]
+ * @param 
+ * @param
+ * @return
  */
 int PFD_eval ();
 
@@ -45,16 +55,16 @@ int PFD_eval ();
 // -------------
 
 /**
- * prints the values of i, j, and v
- * @param w a std::ostream
- * @param i the beginning of the range, inclusive
- * @param j the end       of the range, inclusive
- * @param v the max cycle length
+ * prints
+ * @param
+ * @param 
+ * @param 
+ * @param 
  */
-void PFD_print (std::ostream&);
+void PFD_print ();
 
 // -------------
-// PFD_construct
+// PFD_solve
 // -------------
 
 /**
@@ -62,12 +72,13 @@ void PFD_print (std::ostream&);
  * @param r a std::istream
  * @param w a std::ostream
  */
-void PFD_solve (std::istream&, std::ostream&);
+void PFD_solve (std::istream& r, std::ostream& w);
 
 struct node {
 	int id;
 	vector<int> outgoing;
 	vector<int> incoming;
+    node(int nId, vector<int> out, vector<int> in):id(nId),outgoing(out),incoming(in){}
 };
 
 #endif // PFD_h
