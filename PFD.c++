@@ -30,6 +30,8 @@ bool PFD_read (int numVerts, int numRules, std::istream& in) {
 			int temp;
 			cin >> temp;
             assert(temp>0);
+            --temp; //nodeId ranges from [1,N]
+            assert(temp>0);
 			dep.push_back(temp);
 		}
         assert(dep.size()>0);
