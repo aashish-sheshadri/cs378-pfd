@@ -25,30 +25,31 @@ struct TestPFD : CppUnit::TestFixture {
         int numVerts = 5;
         int numRules = 4;
         std::istringstream in("3 2 1 5\n2 2 5 3\n4 1 3\n5 1 1\n");
-        const bool b = PFD_read(numVerts,numRules,in);
-        CPPUNIT_ASSERT(b == true);
+        std::vector<node> graph = PFD_read(numVerts,numRules,in);
         CPPUNIT_ASSERT(numVerts == 5);
-        CPPUNIT_ASSERT(numRules == 4);}
+        CPPUNIT_ASSERT(numRules == 4);
+        CPPUNIT_ASSERT(graph.size() == 5);
+        }
 
      void test_read_2 () {
         //sample input
         int numVerts = 100;
         int numRules = 4;
         std::istringstream in("3 2 1 5\n2 2 5 3\n4 1 3\n5 1 1\n");
-        const bool b = PFD_read(numVerts,numRules,in);
-        CPPUNIT_ASSERT(b == true);
+        std::vector<node> graph = PFD_read(numVerts,numRules,in);
         CPPUNIT_ASSERT(numVerts == 100);
-        CPPUNIT_ASSERT(numRules == 4);}
+        CPPUNIT_ASSERT(numRules == 4);
+        CPPUNIT_ASSERT(graph.size() == 100);}
 
     void test_read_3 () {
         //sample input
         int numVerts = 5;
         int numRules = 4;
         std::istringstream in("3 1 1\n2 2 5 3\n4 1 3\n5 1 1\n");
-        const bool b = PFD_read(numVerts,numRules,in);
-        CPPUNIT_ASSERT(b == true);
+        std::vector<node> graph = PFD_read(numVerts,numRules,in);
         CPPUNIT_ASSERT(numVerts == 5);
-        CPPUNIT_ASSERT(numRules == 4);}
+        CPPUNIT_ASSERT(numRules == 4);
+        CPPUNIT_ASSERT(graph.size() == 5);}
     
     // -----
     // Create graph
@@ -100,15 +101,36 @@ struct TestPFD : CppUnit::TestFixture {
     // eval
     // -----
     void test_eval () {
-        PFD_eval();
-        CPPUNIT_ASSERT(false);}
+        std::vector<int> actualResult;
+        actualResult.push_back(1);
+        actualResult.push_back(5);
+        actualResult.push_back(3);
+        actualResult.push_back(2);
+        actualResult.push_back(4);
+
+        int numVerts = 5;
+        int numRules = 4;
+        std::istringstream in("3 1 1\n2 2 5 3\n4 1 3\n5 1 1\n");
+        std::vector<node> graph = PFD_read(numVerts,numRules,in);
+        std::vector<int> result = PFD_eval(graph);
+        CPPUNIT_ASSERT(std::equal(result.begin(),result.end(),actualResult.begin()));}
 
     // -----
     // print
     // -----
     void test_print() {
-        PFD_print();
-        CPPUNIT_ASSERT(false);}
+        std::vector<int> result;
+        result.push_back(1);
+        result.push_back(5);
+        result.push_back(3);
+        result.push_back(2);
+        result.push_back(4);
+
+        std::ostringstream out;
+
+        PFD_print(result,out);
+
+        CPPUNIT_ASSERT(out.str() == "1 5 3 2 4");}
 
     // -----
     // solve
@@ -136,8 +158,8 @@ struct TestPFD : CppUnit::TestFixture {
     CPPUNIT_TEST(test_PFD_make_graph);
     CPPUNIT_TEST(test_PFD_construct_1);
     //CPPUNIT_TEST(test_eval);
-    //CPPUNIT_TEST(test_print);
-    CPPUNIT_TEST(test_solve_1);
+    CPPUNIT_TEST(test_print);
+    //CPPUNIT_TEST(test_solve_1);
     //CPPUNIT_TEST(test_solve_2);
     CPPUNIT_TEST_SUITE_END();};
 

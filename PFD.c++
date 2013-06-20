@@ -9,7 +9,7 @@
 #include "PFD.h"
 
 
-bool PFD_read (int numVerts, int numRules, std::istream& in) {
+std::vector<node> PFD_read (int numVerts, int numRules, std::istream& in) {
 	assert(numVerts>0);
     assert(numRules>0);
 
@@ -38,7 +38,7 @@ bool PFD_read (int numVerts, int numRules, std::istream& in) {
         assert(dep.size()>0);
 		PFD_construct(nodeId, dep, graph);
         assert(graph.size() == static_cast<unsigned int>(graphSize));}
-    return (!graph.empty());}
+    return (graph);}
 
 void PFD_construct(int numVerts, std::vector<node>& graph) {
 	assert(numVerts > 0);
@@ -70,10 +70,41 @@ void PFD_construct (int nodeId, std::vector<int> dependencies, std::vector<node>
 		tempNode.outgoing.push_back(nodeId);
 	}}
 
-void PFD_eval () {
+std::vector<int> PFD_eval (std::vector<node>& graph) {
+	std::vector<int> result;
+	while(!graph.empty()) {
+		std::vector<int> nodeIdx;
+		for(std::vector<node>::iterator it = graph.begin(); it != graph.end(); ++it) {
+			if((*it).incoming.empty()){
+				nodeIdx.push_back((*it).id);
+			}
+		}
+		std::sort(nodeIdx.begin(),nodeIdx.end());
+		int delNodeId = nodeIdx[0];
+
+		for(std::vector<int>::iterator it = graph[delNodeId].outgoing.begin(); it != graph[delNodeId].outgoing.end(); ++it) {
+			for(std::vector<int>::iterator iit = graph[*it].incoming.begin(); iit != graph[*it].incoming.end(); ++iit) {
+				if(*iit == delNodeId)
+					graph[*it].incoming.erase(iit);
+			}
+		}
+		result.push_back(delNodeId + 1);
+		for(std::vector<node>::iterator it = graph.begin(); it != graph.end(); ++it) {
+			if((*it).id == delNodeId)
+				graph.erase(it);
+		}
+	}
+	return result;
 }
 
-void PFD_print () {
+void PFD_print (std::vector<int> result, std::ostream& out) {
+		bool first = true;
+		for(std::vector<int>::iterator it = result.begin();it!=result.end();++it){
+			if(!first)
+				out<<" ";
+			out<<*it;
+			first = false;
+		}
 }
 
 void PFD_solve (std::istream& in, std::ostream& out) {
@@ -84,6 +115,7 @@ void PFD_solve (std::istream& in, std::ostream& out) {
 		int numRules;
 		in >> numRules;
         assert(numRules>0);
-		PFD_read(numVerts, numRules, in);
-		//PFD_eval();
+		std::vector<node> graph = PFD_read(numVerts, numRules, in);
+		std::vector<int> result = PFD_eval(graph);
+		PFD_print(result,out);
 	} while (!in);}

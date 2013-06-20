@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 struct node {
 	int id;
@@ -23,7 +24,7 @@ struct node {
  * @param in a std::istream with dependency rules 
  * @return true if read succeeds, false otherwise
  */
-bool PFD_read (int numVerts, int numRules, std::istream& in);
+std::vector<node> PFD_read (int numVerts, int numRules, std::istream& in);
 
 // ------------
 // PFD_construct
@@ -51,11 +52,10 @@ void PFD_construct (int nodeId, std::vector<int> dependencies, std::vector<node>
 // ------------
 
 /**
- * @param 
- * @param
- * @return
+ * @param graph is a vector by reference -- hold the dependency graph
+ * @return is a vector of intergers with final results
  */
-void PFD_eval ();
+std::vector<int> PFD_eval (std::vector<node>& graph);
 
 
 // -------------
@@ -64,12 +64,10 @@ void PFD_eval ();
 
 /**
  * prints
- * @param
- * @param 
- * @param 
- * @param 
+ * @param result is the vector of results
+ * @param out is the output stream to which to print 
  */
-void PFD_print ();
+void PFD_print (std::vector<int> result, std::ostream& out);
 
 // -------------
 // PFD_solve
