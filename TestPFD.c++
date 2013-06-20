@@ -54,9 +54,9 @@ struct TestPFD : CppUnit::TestFixture {
     // Create graph
     // -----
     void test_PFD_make_graph () {
-        vector<node> graph;
+        std::vector<node> graph;
         int numVerts = 10;
-        PDF_construct(numVerts,graph);
+        PFD_construct(numVerts,graph);
         CPPUNIT_ASSERT(numVerts == 10);
         CPPUNIT_ASSERT(!graph.empty());
         CPPUNIT_ASSERT(graph.size() == 10);
@@ -71,15 +71,15 @@ struct TestPFD : CppUnit::TestFixture {
     // Update graph
     // -----
     void test_PFD_construct_1 () {
-        vector<int> dependencies; 
+        std::vector<int> dependencies; 
         dependencies.push_back(1);
         dependencies.push_back(5);
         
-        vector<node> graph;
+        std::vector<node> graph;
         int numVerts = 5;
         for (int i = 0; i < numVerts; ++i) {
-		    vector<int> temp_incoming;
-		    vector<int> temp_outgoing;
+		    std::vector<int> temp_incoming;
+		    std::vector<int> temp_outgoing;
 		    node temp (i, temp_outgoing, temp_incoming);
 		    graph.push_back(temp);}
         
@@ -116,13 +116,13 @@ struct TestPFD : CppUnit::TestFixture {
         std::istringstream in("5 4\n3 2 1 5\n2 2 5 3\n4 1 3\n5 1 1\n");
         std::ostringstream out;
         PFD_solve(in,out);
-        CPPUNIT_TEST(true);}
+        CPPUNIT_ASSERT(true);}
     
     void test_solve_2 () {
         std::istringstream in("5 4\n3 2 1 5\n2 2 5 3\n4 1 3\n5 1 1\n\n5 4\n3 1 1\n2 2 5 3\n4 1 3\n5 1 1\n");
         std::ostringstream out;
         PFD_solve(in,out);
-        CPPUNIT_TEST(true);}
+        CPPUNIT_ASSERT(true);}
 
     // -----
     // suite

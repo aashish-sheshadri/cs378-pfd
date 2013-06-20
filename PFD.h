@@ -4,6 +4,14 @@
 #include <iostream>
 #include <vector>
 
+struct node {
+	int id;
+    std::vector<int> outgoing;
+    std::vector<int> incoming;
+    node(int nId, std::vector<int> out, std::vector<int> in):id(nId),outgoing(out),incoming(in){}
+};
+
+
 // ------------
 // PFD_read
 // ------------
@@ -25,7 +33,7 @@ bool PFD_read (int numVerts, int numRules, std::istream& in);
  * @param numVerts an int indicating number of vertices in the dependency graph
  * @param graph a vector<node> by reference holding the dependency graph
  */
-void PFD_construct(int numVerts, vector<node>& graph);
+void PFD_construct(int numVerts, std::vector<node>& graph);
 
 // ------------
 // PFD_construct
@@ -36,7 +44,7 @@ void PFD_construct(int numVerts, vector<node>& graph);
  * @param dependencies a vector<int> holding node dependencies 
  * @param graph a vector<node> by reference holding the dependency graph
  */
-void PFD_construct (int nodeId, vector<int> dependencies, vector<node>& graph);
+void PFD_construct (int nodeId, std::vector<int> dependencies, std::vector<node>& graph);
 
 // ------------
 // PFD_eval
@@ -47,7 +55,7 @@ void PFD_construct (int nodeId, vector<int> dependencies, vector<node>& graph);
  * @param
  * @return
  */
-int PFD_eval ();
+void PFD_eval ();
 
 
 // -------------
@@ -74,11 +82,5 @@ void PFD_print ();
  */
 void PFD_solve (std::istream& r, std::ostream& w);
 
-struct node {
-	int id;
-	vector<int> outgoing;
-	vector<int> incoming;
-    node(int nId, vector<int> out, vector<int> in):id(nId),outgoing(out),incoming(in){}
-};
 
 #endif // PFD_h
