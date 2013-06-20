@@ -157,7 +157,7 @@ struct TestPFD : CppUnit::TestFixture {
     CPPUNIT_TEST(test_read_3);
     CPPUNIT_TEST(test_PFD_make_graph);
     CPPUNIT_TEST(test_PFD_construct_1);
-    //CPPUNIT_TEST(test_eval);
+    CPPUNIT_TEST(test_eval);
     CPPUNIT_TEST(test_print);
     //CPPUNIT_TEST(test_solve_1);
     //CPPUNIT_TEST(test_solve_2);
