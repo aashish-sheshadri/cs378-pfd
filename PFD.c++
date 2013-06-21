@@ -95,7 +95,7 @@ std::vector<int> PFD_eval (std::vector<node>& graph) {
 		for(std::vector<int>::iterator it = graph[delNodeId].outgoing.begin(); it != graph[delNodeId].outgoing.end(); ++it) {
 			std::vector<int>::iterator iit = graph[*it].incoming.begin();
             unsigned int bDelSize = graph[*it].incoming.size();
-            unsigned int delCounter = 0;
+            //unsigned int delCounter = 0;
             graph[*it].incoming.erase(std::remove(graph[*it].incoming.begin(), graph[*it].incoming.end(),delNodeId), graph[*it].incoming.end()); 
             //while(iit != graph[*it].incoming.end()){ 
 			//	if(*iit == delNodeId){
@@ -105,13 +105,13 @@ std::vector<int> PFD_eval (std::vector<node>& graph) {
             //    ++iit;}
 			//}
             unsigned int aDelSize = graph[*it].incoming.size();
-            assert(delCounter == 1);
-            assert(bDelSize == (aDelSize + delCounter));
+            //assert(delCounter == 1);
+            assert(bDelSize == (aDelSize + 1));
 		}
 		result.push_back(delNodeId + 1);
 		std::vector<node>::iterator it = graph.begin();
         unsigned int bDelSize = graph.size();
-        unsigned int delCounter = 0;
+        //unsigned int delCounter = 0;
         _delNodeId = delNodeId;
         graph.erase(std::remove_if(graph.begin(),graph.end(),checkNode),graph.end()); 
         //while(it != graph.end()){
@@ -122,8 +122,8 @@ std::vector<int> PFD_eval (std::vector<node>& graph) {
         //    ++it;}
 		//}
         unsigned int aDelSize = graph.size();
-        assert(delCounter == 1);
-        assert(bDelSize == (aDelSize + delCounter));
+        //assert(delCounter == 1);
+        assert(bDelSize == (aDelSize + 1));
 	}
 	return result;
 }
