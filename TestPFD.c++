@@ -110,7 +110,7 @@ struct TestPFD : CppUnit::TestFixture {
 
         int numVerts = 5;
         int numRules = 4;
-        std::istringstream in("3 1 1\n2 2 5 3\n4 1 3\n5 1 1\n");
+        std::istringstream in("3 2 1 5\n2 2 5 3\n4 1 3\n5 1 1\n");
         std::vector<node> graph = PFD_read(numVerts,numRules,in);
         std::vector<int> result = PFD_eval(graph);
         CPPUNIT_ASSERT(std::equal(result.begin(),result.end(),actualResult.begin()));}

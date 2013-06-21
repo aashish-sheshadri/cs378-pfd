@@ -80,7 +80,9 @@ bool checkNode (const node& Node){
 std::vector<int> PFD_eval (std::vector<node>& graph) {
 	std::vector<int> result;
 	while(!graph.empty()) {
-		std::vector<int> nodeIdx;
+        std::cout<<std::endl<<"*******************Processing Node: "<<graph[0].id<<std::endl;
+        std::cout<<std::endl<<"*******************Graph Size: "<<graph.size()<<std::endl;
+        std::vector<int> nodeIdx;
         bool assertTest_1 = false;
 		for(std::vector<node>::iterator it = graph.begin(); it != graph.end(); ++it) {
 			if((*it).incoming.empty()){
@@ -88,9 +90,14 @@ std::vector<int> PFD_eval (std::vector<node>& graph) {
                 assertTest_1 = true;
 			}
 		}
+        
+        std::cout<<"Here at 1"<<std::endl;
+        
         assert(assertTest_1);
 		std::sort(nodeIdx.begin(),nodeIdx.end());
 		int delNodeId = nodeIdx[0];
+        
+        std::cout<<"Here at 2"<<std::endl;
 
 		for(std::vector<int>::iterator it = graph[delNodeId].outgoing.begin(); it != graph[delNodeId].outgoing.end(); ++it) {
 			//std::vector<int>::iterator iit = graph[*it].incoming.begin();
@@ -109,7 +116,9 @@ std::vector<int> PFD_eval (std::vector<node>& graph) {
             assert(bDelSize == (aDelSize + 1));
 		}
 		result.push_back(delNodeId + 1);
-		//std::vector<node>::iterator it = graph.begin();
+		
+        std::cout<<"Here at 3"<<std::endl;
+        //std::vector<node>::iterator it = graph.begin();
         unsigned int bDelSize = graph.size();
         //unsigned int delCounter = 0;
         _delNodeId = delNodeId;
@@ -124,6 +133,7 @@ std::vector<int> PFD_eval (std::vector<node>& graph) {
         unsigned int aDelSize = graph.size();
         //assert(delCounter == 1);
         assert(bDelSize == (aDelSize + 1));
+        std::cout<<"Here at 4"<<std::endl<<std::endl;
 	}
 	return result;
 }
