@@ -93,7 +93,7 @@ std::vector<int> PFD_eval (std::vector<node>& graph) {
 		int delNodeId = nodeIdx[0];
 
 		for(std::vector<int>::iterator it = graph[delNodeId].outgoing.begin(); it != graph[delNodeId].outgoing.end(); ++it) {
-			std::vector<int>::iterator iit = graph[*it].incoming.begin();
+			//std::vector<int>::iterator iit = graph[*it].incoming.begin();
             unsigned int bDelSize = graph[*it].incoming.size();
             //unsigned int delCounter = 0;
             graph[*it].incoming.erase(std::remove(graph[*it].incoming.begin(), graph[*it].incoming.end(),delNodeId), graph[*it].incoming.end()); 
@@ -109,7 +109,7 @@ std::vector<int> PFD_eval (std::vector<node>& graph) {
             assert(bDelSize == (aDelSize + 1));
 		}
 		result.push_back(delNodeId + 1);
-		std::vector<node>::iterator it = graph.begin();
+		//std::vector<node>::iterator it = graph.begin();
         unsigned int bDelSize = graph.size();
         //unsigned int delCounter = 0;
         _delNodeId = delNodeId;
