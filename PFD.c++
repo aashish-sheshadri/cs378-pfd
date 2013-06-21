@@ -79,61 +79,29 @@ bool checkNode (const node& Node){
 
 std::vector<int> PFD_eval (std::vector<node>& graph) {
 	std::vector<int> result;
-	while(!graph.empty()) {
-        std::cout<<std::endl<<"*******************Processing Node: "<<graph[0].id<<std::endl;
-        std::cout<<std::endl<<"*******************Graph Size: "<<graph.size()<<std::endl;
+	while(!graph.empty()) {  
         std::vector<int> nodeIdx;
-        bool assertTest_1 = false;
 		for(std::vector<node>::iterator it = graph.begin(); it != graph.end(); ++it) {
 			if((*it).incoming.empty()){
 				nodeIdx.push_back((*it).id);
-                assertTest_1 = true;
 			}
 		}
         
-        std::cout<<"Here at 1"<<std::endl;
-        
-        assert(assertTest_1);
 		std::sort(nodeIdx.begin(),nodeIdx.end());
 		int delNodeId = nodeIdx[0];
-        
-        std::cout<<"Here at 2"<<std::endl;
-
-		for(std::vector<int>::iterator it = graph[delNodeId].outgoing.begin(); it != graph[delNodeId].outgoing.end(); ++it) {
-			//std::vector<int>::iterator iit = graph[*it].incoming.begin();
-            unsigned int bDelSize = graph[*it].incoming.size();
-            //unsigned int delCounter = 0;
-            graph[*it].incoming.erase(std::remove(graph[*it].incoming.begin(), graph[*it].incoming.end(),delNodeId), graph[*it].incoming.end()); 
-            //while(iit != graph[*it].incoming.end()){ 
-			//	if(*iit == delNodeId){
-			//		iit = graph[*it].incoming.erase(iit);
-            //        ++delCounter;
-            //    } else {
-            //    ++iit;}
-			//}
-            unsigned int aDelSize = graph[*it].incoming.size();
-            //assert(delCounter == 1);
-            assert(bDelSize == (aDelSize + 1));
-		}
-		result.push_back(delNodeId + 1);
-		
-        std::cout<<"Here at 3"<<std::endl;
-        //std::vector<node>::iterator it = graph.begin();
-        unsigned int bDelSize = graph.size();
-        //unsigned int delCounter = 0;
         _delNodeId = delNodeId;
-        graph.erase(std::remove_if(graph.begin(),graph.end(),checkNode),graph.end()); 
-        //while(it != graph.end()){
-		//	if((*it).id == delNodeId){
-		//		it = graph.erase(it);
-        //        ++delCounter;
-        //    } else {
-        //    ++it;}
-		//}
-        unsigned int aDelSize = graph.size();
-        //assert(delCounter == 1);
-        assert(bDelSize == (aDelSize + 1));
-        std::cout<<"Here at 4"<<std::endl<<std::endl;
+        
+		node& delNode = *(std::find_if(graph.begin(),graph.end(),checkNode));
+        
+        for(std::vector<int>::iterator it = delNode.outgoing.begin();it!=delNode.outgoing.end();++it){
+            _delNodeId = *it;
+            node& restNodes = *(std::find_if(graph.begin(),graph.end(),checkNode));   
+            restNodes.incoming.erase(std::remove(restNodes.incoming.begin(), restNodes.incoming.end(),delNodeId), restNodes.incoming.end());} 
+			
+		result.push_back(delNodeId + 1); 
+     
+        _delNodeId = delNodeId;
+        graph.erase(std::remove_if(graph.begin(),graph.end(),checkNode),graph.end());   
 	}
 	return result;
 }
