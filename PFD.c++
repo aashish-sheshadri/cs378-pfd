@@ -70,6 +70,13 @@ void PFD_construct (int nodeId, std::vector<int> dependencies, std::vector<node>
 		tempNode.outgoing.push_back(nodeId);
 	}}
 
+int _delNodeId;
+bool checkNode (const node& Node){
+    if(Node.id == _delNodeId)
+        return true;
+    return false;
+}
+
 std::vector<int> PFD_eval (std::vector<node>& graph) {
 	std::vector<int> result;
 	while(!graph.empty()) {
@@ -88,28 +95,32 @@ std::vector<int> PFD_eval (std::vector<node>& graph) {
 		for(std::vector<int>::iterator it = graph[delNodeId].outgoing.begin(); it != graph[delNodeId].outgoing.end(); ++it) {
 			std::vector<int>::iterator iit = graph[*it].incoming.begin();
             unsigned int bDelSize = graph[*it].incoming.size();
-            unsigned int delCounter = 0; 
-            while(iit != graph[*it].incoming.end()){ 
-				if(*iit == delNodeId){
-					iit = graph[*it].incoming.erase(iit);
-                    ++delCounter;
-                } else {
-                ++iit;}
-			}
+            unsigned int delCounter = 0;
+            graph[*it].incoming.erase(std::remove(graph[*it].incoming.begin(), graph[*it].incoming.end(),delNodeId), graph[*it].incoming.end()); 
+            //while(iit != graph[*it].incoming.end()){ 
+			//	if(*iit == delNodeId){
+			//		iit = graph[*it].incoming.erase(iit);
+            //        ++delCounter;
+            //    } else {
+            //    ++iit;}
+			//}
             unsigned int aDelSize = graph[*it].incoming.size();
+            assert(delCounter == 1);
             assert(bDelSize == (aDelSize + delCounter));
 		}
 		result.push_back(delNodeId + 1);
 		std::vector<node>::iterator it = graph.begin();
         unsigned int bDelSize = graph.size();
-        unsigned int delCounter = 0; 
-        while(it != graph.end()){
-			if((*it).id == delNodeId){
-				it = graph.erase(it);
-                ++delCounter;
-            } else {
-            ++it;}
-		}
+        unsigned int delCounter = 0;
+        _delNodeId = delNodeId;
+        graph.erase(std::remove_if(graph.begin(),graph.end(),checkNode),graph.end()); 
+        //while(it != graph.end()){
+		//	if((*it).id == delNodeId){
+		//		it = graph.erase(it);
+        //        ++delCounter;
+        //    } else {
+        //    ++it;}
+		//}
         unsigned int aDelSize = graph.size();
         assert(delCounter == 1);
         assert(bDelSize == (aDelSize + delCounter));
