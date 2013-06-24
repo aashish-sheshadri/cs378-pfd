@@ -27,6 +27,19 @@ struct node {
 std::vector<node> PFD_read (int numVerts, int numRules, std::istream& in);
 
 // ------------
+// check_node
+// ------------
+
+/**
+ * Helper method for PFD_construct(int, std::vector<int>, std::vector<node>&).
+ * Checks a node against deletion ID to see if it is the node
+ * that needs to be deleted.
+ * @param Node Node to check against deletion ID
+ * @return True if Node's id matches deletion ID
+ */
+bool checkNode (const node& Node);
+
+// ------------
 // PFD_construct
 // ------------
 

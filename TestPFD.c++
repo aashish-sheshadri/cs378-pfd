@@ -79,12 +79,6 @@ struct TestPFD : CppUnit::TestFixture {
         std::vector<node> graph;
         int numVerts = 5;
         PFD_construct(numVerts, graph);
-        /*for (int i = 0; i < numVerts; ++i) {
-		    std::vector<int> temp_incoming;
-		    std::vector<int> temp_outgoing;
-		    node temp (i, temp_outgoing, temp_incoming);
-		    graph.push_back(temp);}
-        */
         PFD_construct(2,dependencies,graph);
         CPPUNIT_ASSERT(dependencies.size() == 2);
         CPPUNIT_ASSERT(graph.size() == 5);
@@ -100,7 +94,7 @@ struct TestPFD : CppUnit::TestFixture {
     // -----
     // eval
     // -----
-    void test_eval () {
+    void test_eval_1 () {
         std::vector<int> actualResult;
         actualResult.push_back(1);
         actualResult.push_back(5);
@@ -115,10 +109,100 @@ struct TestPFD : CppUnit::TestFixture {
         std::vector<int> result = PFD_eval(graph);
         CPPUNIT_ASSERT(std::equal(result.begin(),result.end(),actualResult.begin()));}
 
+     void test_eval_2 () {
+        std::vector<int> actualResult;
+        actualResult.push_back(1);
+        actualResult.push_back(3);
+        actualResult.push_back(4);
+        actualResult.push_back(5);
+        actualResult.push_back(2);
+
+        int numVerts = 5;
+        int numRules = 4;
+        std::istringstream in("3 1 1\n2 2 5 3\n4 1 3\n5 1 1\n");
+        std::vector<node> graph = PFD_read(numVerts,numRules,in);
+        std::vector<int> result = PFD_eval(graph);
+        CPPUNIT_ASSERT(std::equal(result.begin(),result.end(),actualResult.begin()));}
+
+    void test_eval_3 () {
+        std::vector<int> actualResult;
+        actualResult.push_back(1);
+        actualResult.push_back(2);
+        actualResult.push_back(3);
+        actualResult.push_back(4);
+        actualResult.push_back(5);
+        actualResult.push_back(6);
+
+        int numVerts = 5;
+        int numRules = 4;
+        std::istringstream in("2 1 1\n4 2 1 2\n5 2 3 4\n6 1 3");
+        std::vector<node> graph = PFD_read(numVerts,numRules,in);
+        std::vector<int> result = PFD_eval(graph);
+        CPPUNIT_ASSERT(std::equal(result.begin(),result.end(),actualResult.begin()));}
+
+    void test_eval_4 () {
+        std::vector<int> actualResult;
+        actualResult.push_back(1);
+        actualResult.push_back(2);
+        actualResult.push_back(3);
+        actualResult.push_back(4);
+        actualResult.push_back(5);
+
+        int numVerts = 5;
+        int numRules = 2;
+        std::istringstream in("4 1 2\n5 2 2 3");
+        std::vector<node> graph = PFD_read(numVerts,numRules,in);
+        std::vector<int> result = PFD_eval(graph);
+        CPPUNIT_ASSERT(std::equal(result.begin(),result.end(),actualResult.begin()));}
+
+    void test_eval_5 () {
+        std::vector<int> actualResult;
+        actualResult.push_back(1);
+        actualResult.push_back(2);
+        actualResult.push_back(3);
+        actualResult.push_back(4);
+
+        int numVerts = 4;
+        int numRules = 2;
+        std::istringstream in("2 1 1\n4 2 1 2");
+        std::vector<node> graph = PFD_read(numVerts,numRules,in);
+        std::vector<int> result = PFD_eval(graph);
+        CPPUNIT_ASSERT(std::equal(result.begin(),result.end(),actualResult.begin()));}
+
+    void test_eval_6 () {
+        std::vector<int> actualResult;
+        actualResult.push_back(1);
+        actualResult.push_back(2);
+        actualResult.push_back(3);
+        actualResult.push_back(4);
+        actualResult.push_back(5);
+
+        int numVerts = 5;
+        int numRules = 3;
+        std::istringstream in("3 1 2\n4 2 1 3\n5 2 1 3");
+        std::vector<node> graph = PFD_read(numVerts,numRules,in);
+        std::vector<int> result = PFD_eval(graph);
+        CPPUNIT_ASSERT(std::equal(result.begin(),result.end(),actualResult.begin()));}
+
+    void test_eval_7 () {
+        std::vector<int> actualResult;
+        actualResult.push_back(1);
+        actualResult.push_back(2);
+        actualResult.push_back(3);
+        actualResult.push_back(4);
+        actualResult.push_back(5);
+
+        int numVerts = 5;
+        int numRules = 3;
+        std::istringstream in("3 2 1 2\n4 2 1 2\n5 2 1 2");
+        std::vector<node> graph = PFD_read(numVerts,numRules,in);
+        std::vector<int> result = PFD_eval(graph);
+        CPPUNIT_ASSERT(std::equal(result.begin(),result.end(),actualResult.begin()));}
+
     // -----
     // print
     // -----
-    void test_print() {
+    void test_print_1() {
         std::vector<int> result;
         result.push_back(1);
         result.push_back(5);
@@ -132,6 +216,34 @@ struct TestPFD : CppUnit::TestFixture {
 
         CPPUNIT_ASSERT(out.str() == "1 5 3 2 4");}
 
+    void test_print_2() {
+        std::vector<int> result;
+        result.push_back(1);
+        result.push_back(3);
+        result.push_back(4);
+        result.push_back(5);
+        result.push_back(2);
+
+        std::ostringstream out;
+
+        PFD_print(result,out);
+
+        CPPUNIT_ASSERT(out.str() == "1 3 4 5 2");}
+
+    void test_print_3() {
+        std::vector<int> result;
+        result.push_back(2);
+        result.push_back(3);
+        result.push_back(1);
+        result.push_back(5);
+        result.push_back(4);
+
+        std::ostringstream out;
+
+        PFD_print(result,out);
+
+        CPPUNIT_ASSERT(out.str() == "2 3 1 5 4");}
+
     // -----
     // solve
     // -----
@@ -139,13 +251,19 @@ struct TestPFD : CppUnit::TestFixture {
         std::istringstream in("5 4\n3 2 1 5\n2 2 5 3\n4 1 3\n5 1 1\n");
         std::ostringstream out;
         PFD_solve(in,out);
-        CPPUNIT_ASSERT(true);}
+        CPPUNIT_ASSERT(out.str() == "1 5 3 2 4\n");}
     
     void test_solve_2 () {
         std::istringstream in("5 4\n3 2 1 5\n2 2 5 3\n4 1 3\n5 1 1\n\n5 4\n3 1 1\n2 2 5 3\n4 1 3\n5 1 1\n");
         std::ostringstream out;
         PFD_solve(in,out);
-        CPPUNIT_ASSERT(true);}
+        CPPUNIT_ASSERT(out.str() == "1 5 3 2 4\n1 3 4 5 2");}
+
+    void test_solve_3 () {
+        std::istringstream in("6 4\n2 1 1\n4 2 1 2\n5 2 3 4\n6 1 3");
+        std::ostringstream out;
+        PFD_solve(in,out);
+        CPPUNIT_ASSERT(out.str() == "1 2 3 4 5 6\n");}
 
     // -----
     // suite
@@ -157,10 +275,19 @@ struct TestPFD : CppUnit::TestFixture {
     CPPUNIT_TEST(test_read_3);
     CPPUNIT_TEST(test_PFD_make_graph);
     CPPUNIT_TEST(test_PFD_construct_1);
-    CPPUNIT_TEST(test_eval);
-    CPPUNIT_TEST(test_print);
-    //CPPUNIT_TEST(test_solve_1);
-    //CPPUNIT_TEST(test_solve_2);
+    CPPUNIT_TEST(test_eval_1);
+    CPPUNIT_TEST(test_eval_2);
+    CPPUNIT_TEST(test_eval_3);
+    CPPUNIT_TEST(test_eval_4);
+    CPPUNIT_TEST(test_eval_5);
+    CPPUNIT_TEST(test_eval_6);
+    CPPUNIT_TEST(test_eval_7);
+    CPPUNIT_TEST(test_print_1);
+    CPPUNIT_TEST(test_print_2);
+    CPPUNIT_TEST(test_print_3);
+    CPPUNIT_TEST(test_solve_1);
+    CPPUNIT_TEST(test_solve_2);
+    CPPUNIT_TEST(test_solve_3);
     CPPUNIT_TEST_SUITE_END();};
 
 // ----

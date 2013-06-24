@@ -11,7 +11,7 @@
 
 std::vector<node> PFD_read (int numVerts, int numRules, std::istream& in) {
 	assert(numVerts>0);
-    assert(numRules>0);
+    assert(numRules>=0);
 
     std::vector<node> graph;
     PFD_construct(numVerts, graph);
@@ -78,28 +78,38 @@ bool checkNode (const node& Node){
 }
 
 std::vector<int> PFD_eval (std::vector<node>& graph) {
+	assert (!graph.empty());
+
 	std::vector<int> result;
+
 	while(!graph.empty()) {  
         std::vector<int> nodeIdx;
+
+        // Push nodes without incoming edges into a vector
 		for(std::vector<node>::iterator it = graph.begin(); it != graph.end(); ++it) {
 			if((*it).incoming.empty()){
 				nodeIdx.push_back((*it).id);
 			}
 		}
-        
+
+		// Sort vector to get lowest nodeID value among nodes without incoming edges
 		std::sort(nodeIdx.begin(),nodeIdx.end());
 		int delNodeId = nodeIdx[0];
         _delNodeId = delNodeId;
         
+        // Find node that matches delNodeID
 		node& delNode = *(std::find_if(graph.begin(),graph.end(),checkNode));
         
+        // Remove delNode from incoming edges of other nodes in graph
         for(std::vector<int>::iterator it = delNode.outgoing.begin();it!=delNode.outgoing.end();++it){
             _delNodeId = *it;
             node& restNodes = *(std::find_if(graph.begin(),graph.end(),checkNode));   
             restNodes.incoming.erase(std::remove(restNodes.incoming.begin(), restNodes.incoming.end(),delNodeId), restNodes.incoming.end());} 
-			
+		
+		// Add delNodeId to result vector	
 		result.push_back(delNodeId + 1); 
      
+     	// Remove delNode from graph
         _delNodeId = delNodeId;
         graph.erase(std::remove_if(graph.begin(),graph.end(),checkNode),graph.end());   
 	}
@@ -107,24 +117,28 @@ std::vector<int> PFD_eval (std::vector<node>& graph) {
 }
 
 void PFD_print (std::vector<int> result, std::ostream& out) {
-		bool first = true;
-		for(std::vector<int>::iterator it = result.begin();it!=result.end();++it){
-			if(!first)
-				out<<" ";
-			out<<*it;
-			first = false;
-		}
+	bool first = true;
+	for(std::vector<int>::iterator it = result.begin();it!=result.end();++it){
+		if(!first)
+			out<<" ";
+		out<<*it;
+		first = false;
+	}
+	out << "\n";
 }
 
 void PFD_solve (std::istream& in, std::ostream& out) {
+	// Check for presence of information in input stream
+	assert (in);
+	int numVerts;
+	in >> numVerts;
 	do {
-		int numVerts;
-		in >> numVerts;
         assert(numVerts>0);
 		int numRules;
 		in >> numRules;
-        assert(numRules>0);
+        assert(numRules>=0);
 		std::vector<node> graph = PFD_read(numVerts, numRules, in);
 		std::vector<int> result = PFD_eval(graph);
 		PFD_print(result,out);
-	} while (!in);}
+		in >> numVerts;
+	} while (in);}
