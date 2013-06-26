@@ -12,6 +12,8 @@
 
 #include "PFD.h"
 
+extern int _delNodeId;
+
 // -----------
 // TestPFD
 // -----------
@@ -266,6 +268,30 @@ struct TestPFD : CppUnit::TestFixture {
         CPPUNIT_ASSERT(out.str() == "1 2 3 4 5 6\n");}
 
     // -----
+    // checkNode
+    // -----
+    void test_checkNode_1 () {
+        int numVerts = 2;
+        std::vector<node> graph;
+        PFD_construct(numVerts, graph);
+        _delNodeId = 100;
+        CPPUNIT_ASSERT(!checkNode(graph[0]));}
+
+    void test_checkNode_2 () {
+        int numVerts = 2;
+        std::vector<node> graph;
+        PFD_construct(numVerts, graph);
+        _delNodeId = 1;
+        CPPUNIT_ASSERT(!checkNode(graph[0]));}
+
+    void test_checkNode_3 () {
+        int numVerts = 2;
+        std::vector<node> graph;
+        PFD_construct(numVerts, graph);
+        _delNodeId = 1;
+        CPPUNIT_ASSERT(checkNode(graph[1]));}
+
+    // -----
     // suite
     // -----
     
@@ -288,6 +314,9 @@ struct TestPFD : CppUnit::TestFixture {
     CPPUNIT_TEST(test_solve_1);
     CPPUNIT_TEST(test_solve_2);
     CPPUNIT_TEST(test_solve_3);
+    CPPUNIT_TEST(test_checkNode_1);
+    CPPUNIT_TEST(test_checkNode_2);
+    CPPUNIT_TEST(test_checkNode_3);
     CPPUNIT_TEST_SUITE_END();};
 
 // ----
