@@ -1,0 +1,162 @@
+commit d3911ad37cb05c7e332082ae172ce63a8e5b5090
+Author: Aashish Sheshadri <aashish.sheshadri@gmail.com>
+Date:   Wed Jun 26 14:48:02 2013 -0500
+
+    Updated TestPFD.out
+
+commit d3bb4fbe4f01d8148d82562f3d0256bbce9cc118
+Author: Shan Gupta <srg538@cs.utexas.edu>
+Date:   Wed Jun 26 14:47:06 2013 -0500
+
+    Test Files Updated
+
+commit 734237284b179f31835d5e1bc1cbf5df1f3dff7a
+Author: Aashish Sheshadri <aashish.sheshadri@gmail.com>
+Date:   Wed Jun 26 14:32:44 2013 -0500
+
+    Latest TestPFD.out
+
+commit f254134f34ad998f8145f6c9b8353d5c48d90a0d
+Author: Shan Gupta <srg538@cs.utexas.edu>
+Date:   Wed Jun 26 14:31:05 2013 -0500
+
+    Documentation Added
+
+commit dea4cfc40481035a49b59c1208654072464400fb
+Author: Shan Gupta <srg538@cs.utexas.edu>
+Date:   Wed Jun 26 14:29:51 2013 -0500
+
+    TestPFD.c++ Fixed
+
+commit ddc3ecf7ba9550377b301ded8f00941c8e430406
+Merge: 2b3773c 694c3bc
+Author: Shan Gupta <srg538@cs.utexas.edu>
+Date:   Mon Jun 24 17:38:39 2013 -0500
+
+    Merge branch 'master' of https://github.com/aashish-sheshadri/cs378-pfd
+
+commit 2b3773c22616b05b9776aadc731c548eac568e77
+Author: Shan Gupta <srg538@cs.utexas.edu>
+Date:   Mon Jun 24 15:58:12 2013 -0500
+
+    RunPFD.in Created and Unit Tests Updated
+
+commit 694c3bcec26da3623521fc696ea4d9178959b3fa
+Author: Aashish Sheshadri <aashish.sheshadri@gmail.com>
+Date:   Mon Jun 24 15:41:20 2013 -0500
+
+    added line breaks to acceptance tests
+
+commit c975ee6fe50569b16de45480c4010755ce5a56d5
+Author: Aashish Sheshadri <aashish.sheshadri@gmail.com>
+Date:   Mon Jun 24 15:25:13 2013 -0500
+
+    Removed lines between tests
+
+commit 890134de7b0edcbeabc0b2446e226760745bb19e
+Author: Aashish Sheshadri <aashish.sheshadri@gmail.com>
+Date:   Mon Jun 24 15:02:19 2013 -0500
+
+    Added 1000 acceptance tests
+
+commit 9d690e8588a06f728cb5ea69614958c041c0c2f1
+Author: Aashish Sheshadri <aashish.sheshadri@gmail.com>
+Date:   Fri Jun 21 15:12:25 2013 -0500
+
+    Implemented working eval function
+
+commit 0f8a4d70d1a8c8256af072e2c2d0d2b5164a9555
+Author: Aashish Sheshadri <aashish.sheshadri@gmail.com>
+Date:   Fri Jun 21 14:36:47 2013 -0500
+
+    still debugging eval
+
+commit 35a6dcaf5cc0e58ed817c6a20bcf8673ab858eb3
+Author: Aashish Sheshadri <aashish.sheshadri@gmail.com>
+Date:   Fri Jun 21 12:30:33 2013 -0500
+
+    Another minor change
+
+commit 3e39cdad221373e5dc31dc29248d55857f08e2fe
+Author: Aashish Sheshadri <aashish.sheshadri@gmail.com>
+Date:   Fri Jun 21 12:28:56 2013 -0500
+
+    make a minor change
+
+commit 69bda53b7165b3bfa76b8d4bb1870f2793071921
+Author: Aashish Sheshadri <aashish.sheshadri@gmail.com>
+Date:   Fri Jun 21 12:24:34 2013 -0500
+
+    updated delete node method with erase-remove
+
+commit 075181d220f6a81995e4032c9bab7289554d4faa
+Author: Aashish Sheshadri <aashish.sheshadri@gmail.com>
+Date:   Thu Jun 20 17:26:03 2013 -0500
+
+    added asserts to help debug eval and corrected erase
+
+commit 59ddcb5ef3fc80b46eadc1de4091bef25dc53a13
+Author: Shan Gupta <srg538@cs.utexas.edu>
+Date:   Thu Jun 20 15:55:18 2013 -0500
+
+    Implementing Eval
+
+commit 3e5d807a4bc52aa262d2e076a33a2e2d67c784a4
+Author: Shan Gupta <srg538@cs.utexas.edu>
+Date:   Thu Jun 20 14:29:01 2013 -0500
+
+    Test Cases Working
+
+commit 2a278279fe4053407296c73fc89609bacdfbfc6f
+Author: Aashish Sheshadri <aashish.sheshadri@gmail.com>
+Date:   Thu Jun 20 13:34:53 2013 -0500
+
+    working order
+
+commit e0be20fdb179c9f5dc31b1b2a46211ad5127b29e
+Author: Aashish Sheshadri <aashish.sheshadri@gmail.com>
+Date:   Thu Jun 20 13:06:36 2013 -0500
+
+    deleted makefile
+
+commit 45511e188a91aef697db7aebb512305565e951f9
+Author: Aashish Sheshadri <aashish.sheshadri@gmail.com>
+Date:   Thu Jun 20 13:03:11 2013 -0500
+
+    added more unit tests
+
+commit d710035219cf8d928f09593dce5b3f81733c5479
+Author: Aashish Sheshadri <aashish.sheshadri@gmail.com>
+Date:   Wed Jun 19 23:52:16 2013 -0500
+
+    improved existing implementation and added assert statements
+
+commit ae6cec4a8fabf7b28ab18a8812ea09fa86ff8c20
+Author: Aashish Sheshadri <aashish.sheshadri@gmail.com>
+Date:   Wed Jun 19 23:51:28 2013 -0500
+
+    Added test interface
+
+commit 3e998a9bceb9956f6715aa1c134c49263ee0fcb0
+Author: Aashish Sheshadri <aashish.sheshadri@gmail.com>
+Date:   Wed Jun 19 22:52:44 2013 -0500
+
+    adding .gitignore
+
+commit 4c211b07137450331721fbdb71be87924debeb01
+Author: Shan Gupta <srg538@cs.utexas.edu>
+Date:   Mon Jun 17 15:48:17 2013 -0500
+
+    Implemented Some Methods
+
+commit 35817974de1e9ba66a705a11b1b8f95624018f8b
+Author: Shan Gupta <srg538@cs.utexas.edu>
+Date:   Mon Jun 17 14:35:48 2013 -0500
+
+    Files added
+
+commit 9022f01b41886b4708bf1745c485244bcf365bc0
+Author: aashish-sheshadri <aashish.sheshadri@gmail.com>
+Date:   Mon Jun 17 12:25:43 2013 -0700
+
+    Initial commit
