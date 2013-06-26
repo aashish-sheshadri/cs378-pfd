@@ -133,7 +133,7 @@ struct TestPFD : CppUnit::TestFixture {
         actualResult.push_back(5);
         actualResult.push_back(6);
 
-        int numVerts = 5;
+        int numVerts = 6;
         int numRules = 4;
         std::istringstream in("2 1 1\n4 2 1 2\n5 2 3 4\n6 1 3");
         std::vector<node> graph = PFD_read(numVerts,numRules,in);
@@ -214,7 +214,7 @@ struct TestPFD : CppUnit::TestFixture {
 
         PFD_print(result,out);
 
-        CPPUNIT_ASSERT(out.str() == "1 5 3 2 4");}
+        CPPUNIT_ASSERT(out.str() == "1 5 3 2 4\n");}
 
     void test_print_2() {
         std::vector<int> result;
@@ -228,7 +228,7 @@ struct TestPFD : CppUnit::TestFixture {
 
         PFD_print(result,out);
 
-        CPPUNIT_ASSERT(out.str() == "1 3 4 5 2");}
+        CPPUNIT_ASSERT(out.str() == "1 3 4 5 2\n");}
 
     void test_print_3() {
         std::vector<int> result;
@@ -242,7 +242,7 @@ struct TestPFD : CppUnit::TestFixture {
 
         PFD_print(result,out);
 
-        CPPUNIT_ASSERT(out.str() == "2 3 1 5 4");}
+        CPPUNIT_ASSERT(out.str() == "2 3 1 5 4\n");}
 
     // -----
     // solve
@@ -257,7 +257,7 @@ struct TestPFD : CppUnit::TestFixture {
         std::istringstream in("5 4\n3 2 1 5\n2 2 5 3\n4 1 3\n5 1 1\n\n5 4\n3 1 1\n2 2 5 3\n4 1 3\n5 1 1\n");
         std::ostringstream out;
         PFD_solve(in,out);
-        CPPUNIT_ASSERT(out.str() == "1 5 3 2 4\n1 3 4 5 2");}
+        CPPUNIT_ASSERT(out.str() == "1 5 3 2 4\n1 3 4 5 2\n");}
 
     void test_solve_3 () {
         std::istringstream in("6 4\n2 1 1\n4 2 1 2\n5 2 3 4\n6 1 3");
